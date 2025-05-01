@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Know Your Fan - FURIA</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #eee;
+    margin: 0;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+  h1 {
+    color: #f44336;
+    margin-bottom: 0.3em;
+  }
+  .container {
+    background: #1e1e1e;
+    border: 2px solid #f44336;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+    padding: 1em 2em 2em;
+    box-sizing: border-box;
+  }
+  label {
+    display: block;
+    margin-top: 1em;
+    font-weight: bold;
+  }
+  input[type="text"], input[type="email"], select, textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.3em;
+    border-radius: 5px;
+    border: none;
+    background: #262626;
+    color: #eee;
+    font-size: 1em;
+    box-sizing: border-box;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  button {
+    margin-top: 1.5em;
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 0.8em 1.5em;
+    font-weight: bold;
+    font-size: 1em;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:disabled {
+    background: #6e2020;
+    cursor: not-allowed;
+  }
+  .section-title {
+    color: #f44336;
+    margin-top: 2em;
+    border-bottom: 1px solid #f44336;
+    padding-bottom: 0.3em;
+  }
+  .result {
+    margin-top: 1em;
+    background: #262626;
+    padding: 1em;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: monospace, monospace;
+  }
+  .footer {
+    margin-top: auto;
+    font-size: 0.8em;
+    color: #666;
+    padding-top: 1em;
+  }
+  a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+  <h1>Know Your Fan - FURIA</h1>
+  <div class="container" role="main" aria-label="Formulário e análise sobre fã da FURIA">
+    <form id="fanForm">
+      <h2 class="section-title">Dados Pessoais</h2>
+      <label for="name">Nome completo</label>
+      <input type="text" id="name" name="name" placeholder="Seu nome completo" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+
+      <label for="location">Cidade</label>
+      <input type="text" id="location" name="location" placeholder="Sua cidade" />
+
+      <label for="favoritePlayer">Jogador favorito da FURIA</label>
+      <select id="favoritePlayer" name="favoritePlayer" required>
+        <option value="" disabled selected>Selecione um jogador</option>
+        <option value="arT">arT</option>
+        <option value="yuurih">yuurih</option>
+        <option value="KSCERATO">KSCERATO</option>
+        <option value="VINI">VINI</option>
+        <option value="arTiz">arTiz</option>
+      </select>
+
+      <h2 class="section-title">Explorar Redes Sociais (Twitter)</h2>
+      <label for="twitterUsername">Digite seu @username do Twitter</label>
+      <input type="text" id="twitterUsername" name="twitterUsername" placeholder="ex: furiaCS" />
+
+      <button type="submit" id="analyzeBtn">Analisar perfil</button>
+    </form>
+
+    <section id="analysisSection" style="display:none;">
+      <h2 class="section-title">Análise do Fã</h2>
+      <div id="personalData"></div>
+      <div id="twitterAnalysis"></div>
+    </section>
+  </div>
+
+  <div class="footer">Projeto desenvolvido Rayssa Teixeira - Know Your Fan - FURIA</div>
+
+<script>
+  const form = document.getElementById('fanForm');
+  const analysisSection = document.getElementById('analysisSection');
+  const personalDataDiv = document.getElementById('personalData');
+  const twitterAnalysisDiv = document.getElementById('twitterAnalysis');
+  const analyzeBtn = document.getElementById('analyzeBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    analyzeBtn.disabled = true;
+    analysisSection.style.display = 'none';
+    personalDataDiv.innerHTML = '';
+    twitterAnalysisDiv.innerHTML = '';
+
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const location = form.location.value.trim();
+    const favoritePlayer = form.favoritePlayer.value;
+    const twitterUsername = form.twitterUsername.value.trim().replace(/^@/, '');
+
+    // Exibir dados pessoais
+    personalDataDiv.innerHTML = `
+      <h3>Dados Pessoais:</h3>
+      <p><strong>Nome:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Cidade:</strong> ${location || 'Não informado'}</p>
+      <p><strong>Jogador favorito:</strong> ${favoritePlayer}</p>
+    `;
+
+    // Realizar análise do Twitter, se username fornecido
+    if (twitterUsername) {
+      twitterAnalysisDiv.innerHTML = '<p>Buscando tweets públicos...</p>';
+
+      // A API oficial do Twitter requer autenticação - para exemplo, simulamos chamada e análise.
+
+      // Simulação de busca e análise
+      await new Promise(r => setTimeout(r, 1500)); // Simula delay
+
+      // Tweets simulados
+      const tweets = [
+        'Hoje a @FURIA venceu uma partida incrível! #GoFURIA',
+        'Adoro assistir os jogos do KSCERATO, que jogador!',
+        'Fique ligado no próximo torneio da FURIA. Vai ser épico!',
+        'Nada como o team FURIA representando o Brasil no CS:GO.',
+        'Fiquei triste com a derrota hoje, mas confio no time!',
+      ];
+
+      // Análise simples: contar menções "FURIA" e sentimento positivo/negativo
+      const furiaMentions = tweets.filter(t => t.toLowerCase().includes('furia')).length;
+
+      // Palavras positivas e negativas simples
+      const positiveWords = ['incrível', 'adoro', 'épico', 'representando', 'confio', 'feliz', 'ótimo'];
+      const negativeWords = ['triste', 'derrota', 'ruim', 'problema'];
+
+      let positiveCount = 0;
+      let negativeCount = 0;
+
+      tweets.forEach(tweet => {
+        positiveWords.forEach(word => {
+          if (tweet.toLowerCase().includes(word)) positiveCount++;
+        });
+        negativeWords.forEach(word => {
+          if (tweet.toLowerCase().includes(word)) negativeCount++;
+        });
+      });
+
+      let sentiment = 'Neutro';
+      if (positiveCount > negativeCount) sentiment = 'Positivo';
+      else if (negativeCount > positiveCount) sentiment = 'Negativo';
+
+      twitterAnalysisDiv.innerHTML = `
+        <h3>Análise do Twitter (@${twitterUsername}):</h3>
+        <p>Últimos ${tweets.length} tweets públicos simulados.</p>
+        <p><strong>Menções à FURIA:</strong> ${furiaMentions}</p>
+        <p><strong>Sentimento geral:</strong> ${sentiment}</p>
+        <details>
+          <summary>Tweets usados na análise</summary>
+          <pre>${tweets.join("\\n\\n")}</pre>
+        </details>
+      `;
+    } else {
+      twitterAnalysisDiv.innerHTML = '<p><em>Digite um usuário do Twitter para análise das interações.</em></p>';
+    }
+
+    analysisSection.style.display = 'block';
+    analyzeBtn.disabled = false;
+
+    // Salvar localmente os dados no localStorage para persistência simples
+    const fanProfile = { name, email, location, favoritePlayer, twitterUsername };
+    localStorage.setItem('fanProfile', JSON.stringify(fanProfile));
+
+  });
+
+  // Preencher formulário com dados salvos, caso existam
+  window.onload = () => {
+    const savedProfile = localStorage.getItem('fanProfile');
+    if (savedProfile) {
+      const data = JSON.parse(savedProfile);
+      form.name.value = data.name || '';
+      form.email.value = data.email || '';
+      form.location.value = data.location || '';
+      form.favoritePlayer.value = data.favoritePlayer || '';
+      form.twitterUsername.value = data.twitterUsername || '';
+    }
+  };
+</script>
+</body>
+</html>
