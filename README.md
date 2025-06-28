@@ -1,5 +1,10 @@
 # questionario-know-your-fan
 
+![image](https://github.com/user-attachments/assets/0a3dbea4-d51a-4987-ad35-affec4d80476)
+
+![image](https://github.com/user-attachments/assets/541ec774-00f5-4912-a312-e2dbf9c29c8d)
+
+
 # _Know Your Fan - FURIA_
 
 Este projeto é uma solução funcional para entender mais sobre o fã da FURIA, usando dados pessoais, redes sociais e interações simuladas. Desenvolvido para o Challenge #2 - Know Your Fan, oferece uma interface simples e intuitiva para que fãs possam registrar seus dados e obter uma análise básica de suas interações no Twitter.
